@@ -25,8 +25,10 @@ export interface Source<TInput> {
   /** If provided, will use this as `input`. For XML, this would be a string, CSV could be a string or Buffer */
   data?: TInput[] | string | Buffer
 }
-
-interface EtlHelperArgs<TInput, TOutput> {
+export interface LoggerOverride {
+  debug: typeof console.debug
+}
+export interface EtlHelperArgs<TInput, TOutput> {
   /** URL of the data source. Initially going to make this a URL, could move to source like `fs.open` has `path` */
   source: Source<TInput>
   /** Expected format that the source is in */
@@ -42,6 +44,7 @@ interface EtlHelperArgs<TInput, TOutput> {
   validateOutput?: (output: TOutput) => boolean
   /** Your means of writing the output to a data store */
   persist: (outputs: TOutput[]) => Promise<void>
+  logger?: LoggerOverride
 }
 
 export const etlHelper = async <TInput, TOutput = TInput>({
@@ -51,6 +54,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   transformer,
   validateOutput,
   persist,
+  logger,
 }: EtlHelperArgs<TInput, TOutput>) => {
   let data
   if (url) {
@@ -58,7 +62,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   } else {
     data = providedData
   }
-  const inputs = await formatProcessor<TInput>(format, data, accessorKey)
+  const inputs = await formatProcessor<TInput>(format, data, accessorKey, logger)
   // If there is no transformer, inputs will be outputs
   let outputs = [...inputs] as unknown as (TOutput | null)[]
   for (let index = 0; index < inputs.length; index++) {
@@ -66,7 +70,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
     if (validateInput) {
       const isValid = validateInput(targetInput)
       if (!isValid) {
-        console.debug(targetInput)
+        logger?.debug(targetInput)
         throw new Error(`[validateInput]: Validation error at position: ${index}`)
       }
     }
@@ -80,7 +84,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
       if (!targetOutput) continue
       const isValid = validateOutput(targetOutput)
       if (!isValid) {
-        console.debug(targetInput)
+        logger?.debug(targetInput)
         throw new Error(`[validateOutput]: Validation error at position: ${index}`)
       }
     }

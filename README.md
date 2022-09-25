@@ -44,8 +44,21 @@ const urlProvidedNoTransformer = async () => {
 
 ## Format
 
+### JSON
+
+### CSV
+
+### XML
+
 ## Validate
 
 ## Transform
 
 ## Persist
+
+## Shout outs
+
+Special thanks to [Public APIs](https://github.com/public-apis/public-apis#currency-exchange) and for these providers not requiring any auth mechanism to pull their data.
+
+- [The COVID Tracking Project](https://covidtracking.com/data/api) for CSV and JSON APIs
+- [Narodowy Bank Polski](http://api.nbp.pl/en.html) for having an XML API

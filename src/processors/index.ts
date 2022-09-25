@@ -1,4 +1,4 @@
-import { Format } from '@/index'
+import { Format, LoggerOverride } from '@/index'
 
 import { csvProcessor } from './csv'
 import { jsonProcessor } from './json'
@@ -8,15 +8,16 @@ import { RecursiveKeyedData } from './accessor'
 export const formatProcessor = <TInput>(
   format: Format,
   data: RecursiveKeyedData,
-  accessorKey?: string
+  accessorKey?: string,
+  logger?: LoggerOverride
 ): Promise<TInput[]> => {
   switch (format) {
     case Format.XML:
-      return xmlProcessor(data, accessorKey)
+      return xmlProcessor(data, accessorKey, logger)
     case Format.CSV:
-      return csvProcessor(data)
+      return csvProcessor(data, logger)
     case Format.JSON:
-      return jsonProcessor(data, accessorKey)
+      return jsonProcessor(data, accessorKey, logger)
     default:
       throw new Error(`[formatProcessor]: Unsupported format type: ${format}`)
   }
