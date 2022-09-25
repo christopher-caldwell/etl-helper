@@ -52,6 +52,8 @@ const urlProvidedNoTransformer = async () => {
 
 ## Validate
 
+<!-- Talk about validate vs doing validation in transformer. Can use validate to return null and skip the row rather than throwing error -->
+
 ## Transform
 
 ## Persist

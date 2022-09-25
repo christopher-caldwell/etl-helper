@@ -19,7 +19,7 @@ export interface Source<TInput> {
    * If present, this will be the path to the data you wished parsed.
    *
    * For example, some APIs return `total: 12, data: []`. In this case, the key would be `data`.
-   * To use nested keys, chain them with periods. `response.subKey.Other_subkey`
+   * To use nested keys, chain them with periods. `response.subKey.Other_nested_key`
    */
   accessorKey?: string
   /** If provided, will use this as `input`. For XML, this would be a string, CSV could be a string or Buffer */
@@ -35,9 +35,9 @@ export interface EtlHelperArgs<TInput, TOutput> {
   format: Format
   /** Function that will provide the input, allow you to mutate it however you'd like, and then return the desired output.
    *
-   * If for whatever reason the record does not conform to your standards, you can remove it by returninging `null`
+   * If for whatever reason the record does not conform to your standards, you can remove it by returning `null`
    */
-  transformer?: (input: TInput) => TOutput | Promise<TOutput> | null
+  transformer?: (input: TInput, index: number) => TOutput | Promise<TOutput> | null
   /** Function to ensure the input meets your needs. This allows for interop with various tools like Zod, Joi, io-ts, etc */
   validateInput?: (input: TInput) => boolean
   /** Function to ensure the output meets your needs. This allows for interop with various tools like Zod, Joi, io-ts, etc */
@@ -75,7 +75,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
       }
     }
     if (transformer) {
-      const output = await transformer(targetInput)
+      const output = await transformer(targetInput, index)
       outputs[index] = output
     }
     if (validateOutput) {
