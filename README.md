@@ -1,35 +1,51 @@
-# GitHub Slugger
+# ETL Helper
 
-Fork of github-slugger written in TS
+Sequential helper function for performing ETL tasks. 
 
-[![NPM](https://img.shields.io/npm/v/@caldwell619/github-slugger.svg)](https://www.npmjs.com/package/@caldwell619/github-slugger) [![NPM](https://img.shields.io/bundlephobia/min/@caldwell619/github-slugger)](https://www.npmjs.com/package/@caldwell619/github-slugger) [![](https://img.shields.io/github/last-commit/christopher-caldwell/github-slugger)]() [![](https://img.shields.io/npm/types/typescript)]()
+**Docs are WIP**
 
-## Demo
-
-[GH Pages](https://christopher-caldwell.github.io/github-slugger/)
+[![NPM](https://img.shields.io/npm/v/@caldwell619/etl-helper.svg)](https://www.npmjs.com/package/@caldwell619/etl-helper) [![NPM](https://img.shields.io/bundlephobia/min/@caldwell619/etl-helper)](https://www.npmjs.com/package/@caldwell619/etl-helper) [![](https://img.shields.io/github/last-commit/christopher-caldwell/etl-helper)]() [![](https://img.shields.io/npm/types/typescript)]()
 
 ## Getting Started
 
 ```shell
-yarn add @caldwell619/github-slugger
+yarn add @caldwell619/etl-helper
 ```
 
 ## Quick Example
 
 ```ts
-import { slugger } from '@caldwell619/github-slugger'
+import { etlHelper, Format, Source } from '@caldwell619/etl-helper'
 
-const slug = slugger('My Cool Post: 2000-08-02')
-// my-cool-post-2000-08-02
+import { CovidResponse, CovidResponseOutput, validateInput, validateOutput } from './schema'
+
+const urlSource: Source<CovidResponse> = {
+  url: 'https://api.covidtracking.com/v1/us/daily.json',
+}
+
+const urlProvidedNoTransformer = async () => {
+  await etlHelper<CovidResponse, CovidResponseOutput>({
+    source: urlSource,
+    format: Format.JSON,
+    validateInput(input) {
+      return test(input)
+    },
+    validateOutput(output) {
+      return test(output)
+    },
+    async persist(outputs) {
+      // write to DB
+    },
+  })
+}
 ```
 
-## Maintaining Casing
+## Source
 
-By default, all characters will be lower cased. If you wish to maintain the casing, pass the second argument as true:
+## Format
 
-```ts
-import { slugger } from '@caldwell619/github-slugger'
+## Validate
 
-const slug = slugger('My Cool Post: 2000-08-02', true)
-// 'My-Cool-Post-2000-08-02'
-```
+## Transform
+
+## Persist
