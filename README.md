@@ -56,6 +56,26 @@ const urlProvidedNoTransformer = async () => {
 
 ## Persist
 
+## Custom Logger
+
+If you'd like provide your own logger, just pass it along:
+
+```ts
+import { adze } from 'adze'
+const myLogger = adze()
+
+etlHelper<CovidResponse>({
+  source: urlSource,
+  format: Format.JSON,
+  persist(outputs){
+    //
+  }
+  logger: myLogger,
+})
+```
+
+The only requirements are that is has a `debug` method with the same call signature as `console.debug`. This logger will be called whenever there is an error for more insight into why the error came up.
+
 ## Shout outs
 
 Special thanks to [Public APIs](https://github.com/public-apis/public-apis#currency-exchange) and for these providers not requiring any auth mechanism to pull their data.
