@@ -7,6 +7,7 @@
     "start:all": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@caldwell619/durable-parse-float": "^0.0.1",
     "@caldwell619/etl-helper": "link:../",
     "adze": "^1.9.1",
     "is-number": "^7.0.0",

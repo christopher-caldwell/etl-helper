@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { etlHelper, Format, Source } from '@caldwell619/etl-helper'
+import { parseFloatStrict } from '@caldwell619/durable-parse-float'
 
 import { xmlOutputSchema, xmlInputSchema } from './schema'
-import { parseFloatStrict } from './csv'
 
 type ExchangeRateInput = z.infer<typeof xmlInputSchema>
 type ExchangeRateOutput = z.infer<typeof xmlOutputSchema>

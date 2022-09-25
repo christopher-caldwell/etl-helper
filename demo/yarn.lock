@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@caldwell619/durable-parse-float@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@caldwell619/durable-parse-float/-/durable-parse-float-0.0.1.tgz#aa27ce4f6b620c0d82a6aad51e44787dd555d81b"
+  integrity sha512-/PddJZQ96UlHQK8EONGgqHeX6qqhN+FgXU0uINu6ICKqohuERnofeXf5wUERMljU3hwPU6/KLB1I+2ZBrSmleg==
+  dependencies:
+    is-number "^7.0.0"
+
 "@caldwell619/etl-helper@link:..":
   version "0.0.0"
   uid ""

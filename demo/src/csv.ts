@@ -1,6 +1,6 @@
 import { etlHelper, Format, Source } from '@caldwell619/etl-helper'
+import { parseFloatStrict, durableParseFloat } from '@caldwell619/durable-parse-float'
 import { z } from 'zod'
-import isInteger from 'is-number'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
@@ -22,25 +22,6 @@ const validateInput = (input: CovidResponseCsv): boolean => {
 
 const urlSource: Source<CovidResponseCsv> = {
   url: 'https://api.covidtracking.com/v1/us/daily.csv',
-}
-
-const isIntegerRegex = /^-?[0-9.]+$/
-
-export const durableParseFloat = (integer?: string | null | number): number | null => {
-  if (typeof integer === 'number') {
-    return isInteger(integer) ? integer : null
-  }
-  if (typeof integer === 'string') {
-    return isIntegerRegex.test(integer) ? parseFloat(integer) : null
-  }
-  return null
-}
-
-export const parseFloatStrict = (integer?: string | null | number): number => {
-  const result = durableParseFloat(integer)
-  if (result === null) throw new Error(`[parseFloatStrict]: Result, ${result}, cannot be null from ${integer}`)
-
-  return result
 }
 
 /**
