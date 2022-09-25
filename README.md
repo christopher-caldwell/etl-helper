@@ -1,6 +1,6 @@
 # ETL Helper
 
-Sequential helper function for performing ETL tasks. 
+Sequential helper function for performing ETL tasks.
 
 **Docs are WIP**
 
