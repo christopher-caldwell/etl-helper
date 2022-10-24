@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.2...v0.0.3) (2022-10-24)
+
+
+### Features
+
+* Updating to allow batch transformers ([#2](https://github.com/christopher-caldwell/etl-helper/issues/2)) ([c2102b7](https://github.com/christopher-caldwell/etl-helper/commit/c2102b71744dda830eebd52a1077885389591d1f))
+
+
+### Bug Fixes
+
+* Converting parsing to lib ([edce1c6](https://github.com/christopher-caldwell/etl-helper/commit/edce1c62d08f9fb116d72f51646ecd4339f88b84))
+
 ### 0.0.2 (2022-09-25)
 
 
