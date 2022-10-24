@@ -23,7 +23,7 @@ export class TaskQueue<TData> {
       this.running++
       await task()
       this.running--
-      if (this.running === 0) {
+      if (this.running === 0 && this.queue.length === 0) {
         this.emitter.emit('done')
       }
       this.next()

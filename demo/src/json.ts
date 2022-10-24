@@ -25,9 +25,10 @@ const urlProvidedWithTransformer = async () => {
     source: urlSource,
     format: Format.JSON,
     validateInput,
-    concurrency: 1000,
+    // concurrency: 1,
     async transformer(input, index) {
-      const randomMsToWait = Math.floor(Math.random() * 500)
+      const randomMsToWait = Math.floor(Math.random() * 5)
+      console.log({ index })
       await waitForMs(randomMsToWait)
       return { ...input, ingestionDate: new Date() }
     },
