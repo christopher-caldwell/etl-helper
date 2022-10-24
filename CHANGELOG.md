@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.3...v0.0.4) (2022-10-24)
+
+
+### Bug Fixes
+
+* Correcting queue end logic ([3e25e04](https://github.com/christopher-caldwell/etl-helper/commit/3e25e040ecc16f0d139cd24eb157f72778b9c209))
+
 ### [0.0.3](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.2...v0.0.3) (2022-10-24)
 
 
