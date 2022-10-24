@@ -2,6 +2,8 @@ import { etlHelper, Format, Source } from '@caldwell619/etl-helper'
 
 import { CovidResponse, CovidResponseOutput, validateInput, validateOutput, data } from './schema'
 
+const waitForMs = (ms: number) => new Promise(res => setTimeout(res, ms))
+
 const urlSource: Source<CovidResponse> = {
   url: 'https://api.covidtracking.com/v1/us/daily.json',
 }
@@ -18,22 +20,28 @@ const urlProvidedNoTransformer = async () => {
 }
 
 const urlProvidedWithTransformer = async () => {
+  console.log('start')
   await etlHelper<CovidResponse, CovidResponseOutput>({
     source: urlSource,
     format: Format.JSON,
     validateInput,
-    transformer(input) {
+    concurrency: 1000,
+    async transformer(input, index) {
+      const randomMsToWait = Math.floor(Math.random() * 500)
+      await waitForMs(randomMsToWait)
       return { ...input, ingestionDate: new Date() }
     },
     validateOutput,
     persist: async outputs => {
-      console.log(outputs.length)
+      console.log('Outputs', outputs.length)
     },
   })
+  console.log('done')
 }
 
 const dataProvidedNoTransformer = async () => {
   await etlHelper<CovidResponse>({
+    concurrency: 10,
     source: {
       data,
     },
@@ -63,10 +71,10 @@ const dataProvidedBadDataTransformer = async () => {
 }
 
 const json = async () => {
-  await urlProvidedNoTransformer()
+  // await urlProvidedNoTransformer()
   await urlProvidedWithTransformer()
-  await dataProvidedNoTransformer()
-  await dataProvidedBadDataTransformer()
+  // await dataProvidedNoTransformer()
+  // await dataProvidedBadDataTransformer()
 }
 
 json()
