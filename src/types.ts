@@ -52,4 +52,4 @@ export interface EtlHelperArgs<TInput, TOutput> {
    */
   concurrency?: number
 }
-type NonNullable<T> = T extends null | undefined ? never : T
+export type NonNullable<T> = T extends null | undefined ? never : T

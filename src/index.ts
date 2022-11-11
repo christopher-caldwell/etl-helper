@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { formatProcessor as formatProcessor } from './processors'
-import { EtlHelperArgs } from './types'
+import { EtlHelperArgs, NonNullable } from './types'
 import { TaskQueue } from './queue'
 
 export const etlHelper = async <TInput, TOutput = TInput>({
@@ -53,7 +53,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   }
   return new Promise(res => {
     Queue.emitter.on('done', async () => {
-      const persistableOutputs = outputs.filter(output => output !== null) as TOutput[]
+      const persistableOutputs = outputs.filter(output => output !== null) as NonNullable<TOutput>[]
       await persist(persistableOutputs)
       res('done')
     })
