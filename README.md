@@ -10,6 +10,12 @@ Structured helper function for performing ETL tasks with optional and configurab
 yarn add @caldwell619/etl-helper
 ```
 
+## Demo
+
+Sometimes docs are boring and you just want to see how it's done.
+
+Here are examples for [json](./demo/src/json.ts), [csv](./demo/src/csv.ts), and [xml](./demo/src/xml.ts)
+
 ## Quick Example
 
 ```ts
