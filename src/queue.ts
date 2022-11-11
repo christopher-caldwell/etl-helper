@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 
 export class TaskQueue<TData> {
-  running: number = 0
+  running = 0
   concurrency: number
   queue: Array<() => Promise<TData>> = []
   emitter: EventEmitter
@@ -11,12 +11,12 @@ export class TaskQueue<TData> {
     this.emitter = new EventEmitter()
   }
 
-  push(task: () => Promise<TData>) {
+  push(task: () => Promise<TData>): void {
     this.queue.push(task)
     this.next()
   }
 
-  async next() {
+  async next(): Promise<void> {
     while (this.running < this.concurrency && this.queue.length) {
       const task = this.queue.shift()
       if (!task) return

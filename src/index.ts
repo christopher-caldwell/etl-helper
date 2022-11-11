@@ -13,7 +13,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   persist,
   logger,
   concurrency = 1,
-}: EtlHelperArgs<TInput, TOutput>) => {
+}: EtlHelperArgs<TInput, TOutput>): Promise<string> => {
   const Queue = new TaskQueue(concurrency)
   let data
   if (url) {
@@ -24,7 +24,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   }
   const inputs = await formatProcessor<TInput>(format, data, accessorKey, logger)
   // If there is no transformer, inputs will be outputs
-  let outputs = [...inputs] as unknown as (TOutput | null)[]
+  const outputs = [...inputs] as unknown as (TOutput | null)[]
   for (let index = 0; index < inputs.length; index++) {
     Queue.push(async () => {
       const targetInput = inputs[index]
