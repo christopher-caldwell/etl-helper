@@ -43,10 +43,11 @@ export interface EtlHelperArgs<TInput, TOutput> {
   /** Function to ensure the output meets your needs. This allows for interop with various tools like Zod, Joi, io-ts, etc */
   validateOutput?: (output: TOutput) => boolean
   /** Your means of writing the output to a data store */
-  persist: (outputs: TOutput[]) => Promise<void>
+  persist: (outputs: NonNullable<TOutput>[]) => Promise<void>
   logger?: LoggerOverride
   /** Number of transformer tasks to be ran in parallel
    * @default 1
    */
   concurrency?: number
 }
+type NonNullable<T> = T extends null | undefined ? never : T
