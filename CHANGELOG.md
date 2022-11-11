@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.4...v0.0.5) (2022-11-11)
+
+
+### Bug Fixes
+
+* Fixing type issue ([4831e6d](https://github.com/christopher-caldwell/etl-helper/commit/4831e6d519d1357ad33013a84badfd62df14e253))
+* Making output types not null as returning null removes them ([8f22783](https://github.com/christopher-caldwell/etl-helper/commit/8f227836d0f3e91e81333b3b76478ae9078ec823))
+* Making parsing libs optional imports if you use them ([#5](https://github.com/christopher-caldwell/etl-helper/issues/5)) ([8b12756](https://github.com/christopher-caldwell/etl-helper/commit/8b12756fddd5766a08a46bf476ea4229ab7f7309))
+* Remove older versions of node ([b4e8a5e](https://github.com/christopher-caldwell/etl-helper/commit/b4e8a5ea790c78658749368d6b524ac68fab8763))
+
 ### [0.0.4](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.3...v0.0.4) (2022-10-24)
 
 
