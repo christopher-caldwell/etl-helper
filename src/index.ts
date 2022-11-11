@@ -5,7 +5,7 @@ import { EtlHelperArgs } from './types'
 import { TaskQueue } from './queue'
 
 export const etlHelper = async <TInput, TOutput = TInput>({
-  source: { url, options, accessorKey, data: providedData },
+  source: { url, client, options, accessorKey, data: providedData },
   format,
   validateInput,
   transformer,
@@ -17,7 +17,8 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   const Queue = new TaskQueue(concurrency)
   let data
   if (url) {
-    data = (await axios.get(url, options)).data
+    const clientToUse = client || axios
+    data = (await clientToUse.get(url, options)).data
   } else {
     data = providedData
   }

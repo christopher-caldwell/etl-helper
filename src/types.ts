@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig } from 'axios'
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 export enum Format {
   CSV = 'csv',
@@ -13,6 +13,8 @@ export interface Source<TInput> {
    */
   url?: string
   options?: AxiosRequestConfig
+  /** Optionally provide a pre-configured Axios client */
+  client?: AxiosInstance
   /**
    * If present, this will be the path to the data you wished parsed.
    *
