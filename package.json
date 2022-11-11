@@ -8,6 +8,7 @@
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint ./ --ext .ts",
+    "jest": "jest",
     "type-check": "tsc --noEmit",
     "build": "microbundle --compress --target node --tsconfig tsconfig.build.json",
     "publish:version": "sh scripts/publish.sh"
