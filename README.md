@@ -35,10 +35,12 @@ const urlProvidedNoTransformer = async () => {
       return test(input)
     },
     // Map the incoming data to your needs.
-    // If this doesn't meet your needs, return `null` and it will be skipped
+    // If this record doesn't meet your needs, return `null` and it will be skipped
     transformer(input, index){
       return {...input, createdAt: new Date()}
-    }
+    },
+    // Optionally process inputs concurrently. Value represents max at once.
+    concurrency: 10,
     // Optional function to ensure the data coming from `transform` meets your needs.
     validateOutput(output) {
       return test(output)
