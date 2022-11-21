@@ -51,11 +51,14 @@ export const etlHelper = async <TInput, TOutput = TInput>({
       }
     })
   }
-  return new Promise(res => {
+  return new Promise((resolve, reject) => {
     Queue.emitter.on('done', async () => {
       const persistableOutputs = outputs.filter(output => output !== null) as NonNullable<TOutput>[]
       await persist(persistableOutputs)
-      res('done')
+      resolve('done')
+    })
+    Queue.emitter.on('error', e => {
+      reject(e)
     })
   })
 }
