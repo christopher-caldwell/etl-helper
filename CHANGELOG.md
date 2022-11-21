@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.5...v0.0.6) (2022-11-21)
+
+
+### Features
+
+* Updating docs ([#6](https://github.com/christopher-caldwell/etl-helper/issues/6)) ([5dec6ab](https://github.com/christopher-caldwell/etl-helper/commit/5dec6abf536693024196be584d97e0fd8554e9eb))
+
+
+### Bug Fixes
+
+* Linting issues ([e94e2a6](https://github.com/christopher-caldwell/etl-helper/commit/e94e2a68d4e96649d63882c27c67d24d8291c6ec))
+
 ### [0.0.5](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.4...v0.0.5) (2022-11-11)
 
 
