@@ -21,12 +21,18 @@ export class TaskQueue<TData> {
       const task = this.queue.shift()
       if (!task) return
       this.running++
-      await task()
-      this.running--
-      if (this.running === 0 && this.queue.length === 0) {
-        this.emitter.emit('done')
+      try {
+        await task()
+        this.running--
+        if (this.running === 0 && this.queue.length === 0) {
+          this.emitter.emit('done')
+        }
+        this.next()
+      } catch (e) {
+        this.queue = []
+        this.running = 0
+        this.emitter.emit('error', e)
       }
-      this.next()
     }
   }
 }

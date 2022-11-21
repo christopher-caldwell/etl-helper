@@ -1,9 +1,8 @@
 import axios from 'axios'
-import asyncQueue from 'queue'
 
 import { formatProcessor as formatProcessor } from './processors'
 import { EtlHelperArgs, NonNullable } from './types'
-// import { TaskQueue } from './myQueue'
+import { TaskQueue } from './queue'
 
 export const etlHelper = async <TInput, TOutput = TInput>({
   source: { url, client, options, accessorKey, data: providedData },
@@ -15,7 +14,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   logger,
   concurrency = 1,
 }: EtlHelperArgs<TInput, TOutput>): Promise<string> => {
-  const queue = asyncQueue({ concurrency, autostart: true })
+  const Queue = new TaskQueue(concurrency)
   let data
   if (url) {
     const clientToUse = client || axios
@@ -27,7 +26,7 @@ export const etlHelper = async <TInput, TOutput = TInput>({
   // If there is no transformer, inputs will be outputs
   const outputs = [...inputs] as unknown as (TOutput | null)[]
   for (let index = 0; index < inputs.length; index++) {
-    queue.push(async () => {
+    Queue.push(async () => {
       const targetInput = inputs[index]
       if (validateInput) {
         const isValid = validateInput(targetInput)
@@ -52,20 +51,14 @@ export const etlHelper = async <TInput, TOutput = TInput>({
       }
     })
   }
-
   return new Promise((resolve, reject) => {
-    queue.on('end', async error => {
-      if (error) {
-        return reject(error)
-      }
+    Queue.emitter.on('done', async () => {
       const persistableOutputs = outputs.filter(output => output !== null) as NonNullable<TOutput>[]
       await persist(persistableOutputs)
       resolve('done')
     })
-
-    queue.on('error', e => {
-      queue.end(e)
-      return reject(e)
+    Queue.emitter.on('error', e => {
+      reject(e)
     })
   })
 }
