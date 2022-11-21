@@ -9,18 +9,23 @@ const urlSource: Source<CovidResponse> = {
 }
 
 const urlProvidedNoTransformer = async () => {
-  await etlHelper<CovidResponse>({
-    source: urlSource,
-    format: Format.JSON,
-    validateInput,
-    persist: async outputs => {
-      console.log(outputs.length)
-    },
-  })
+  try {
+    await etlHelper<CovidResponse>({
+      source: urlSource,
+      format: Format.JSON,
+      validateInput() {
+        throw new Error('Test')
+      },
+      persist: async outputs => {
+        console.log(outputs.length)
+      },
+    })
+  } catch (e) {
+    console.error('Caught the error', e)
+  }
 }
 
 const urlProvidedWithTransformer = async () => {
-  console.log('start')
   await etlHelper<CovidResponse, CovidResponseOutput>({
     source: urlSource,
     format: Format.JSON,
@@ -37,7 +42,6 @@ const urlProvidedWithTransformer = async () => {
       console.log('Outputs', outputs.length)
     },
   })
-  console.log('done')
 }
 
 const dataProvidedNoTransformer = async () => {
@@ -73,9 +77,9 @@ const dataProvidedBadDataTransformer = async () => {
 
 const json = async () => {
   await urlProvidedNoTransformer()
-  await urlProvidedWithTransformer()
-  await dataProvidedNoTransformer()
-  await dataProvidedBadDataTransformer()
+  // await urlProvidedWithTransformer()
+  // await dataProvidedNoTransformer()
+  // await dataProvidedBadDataTransformer()
 }
 
 json()

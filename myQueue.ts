@@ -8,7 +8,7 @@ export class TaskQueue<TData> {
 
   constructor(concurrency: number) {
     this.concurrency = concurrency
-    this.emitter = new EventEmitter()
+    this.emitter = new EventEmitter({ captureRejections: true })
   }
 
   push(task: () => Promise<TData>): void {
