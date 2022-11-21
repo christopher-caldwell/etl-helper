@@ -77,9 +77,9 @@ const dataProvidedBadDataTransformer = async () => {
 
 const json = async () => {
   await urlProvidedNoTransformer()
-  // await urlProvidedWithTransformer()
-  // await dataProvidedNoTransformer()
-  // await dataProvidedBadDataTransformer()
+  await urlProvidedWithTransformer()
+  await dataProvidedNoTransformer()
+  await dataProvidedBadDataTransformer()
 }
 
 json()
