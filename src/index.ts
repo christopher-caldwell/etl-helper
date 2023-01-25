@@ -51,6 +51,9 @@ export const etlHelper = async <TInput, TOutput = TInput>({
       }
     })
   }
+  if (inputs.length === 0) {
+    Queue.emitter.emit('done')
+  }
   return new Promise((resolve, reject) => {
     Queue.emitter.on('done', async () => {
       const persistableOutputs = outputs.filter(output => output !== null) as NonNullable<TOutput>[]
