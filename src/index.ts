@@ -63,6 +63,10 @@ export const etlHelper = async <TInput, TOutput = TInput>({
     Queue.emitter.on('error', e => {
       reject(e)
     })
+
+    if (inputs.length === 0) {
+      Queue.emitter.emit('done')
+    }
   })
 }
 
