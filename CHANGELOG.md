@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.6...v0.0.7) (2023-01-25)
+
+
+### Bug Fixes
+
+* 0 input still emits done ([f68a037](https://github.com/christopher-caldwell/etl-helper/commit/f68a037c05e65932e251c61e562c3287394a8e37))
+
 ### [0.0.6](https://github.com/christopher-caldwell/etl-helper/compare/v0.0.5...v0.0.6) (2022-11-21)
 
 

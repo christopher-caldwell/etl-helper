@@ -1,6 +1,6 @@
 {
   "name": "@caldwell619/etl-helper",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Helper framework for handling ETL syncs",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
