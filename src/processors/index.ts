@@ -22,3 +22,7 @@ export const formatProcessor = <TInput>(
       throw new Error(`[formatProcessor]: Unsupported format type: ${format}`)
   }
 }
+
+export { csvProcessor } from './csv'
+export { jsonProcessor } from './json'
+export { xmlProcessor } from './xml'
